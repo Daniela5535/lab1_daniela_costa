@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API e Java</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Fundo simples e sólido */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>O que é REST API com Java?</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Voltar ao Início</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>O Básico</h2>
+            <p>REST API é uma forma de programas conversarem pela internet. É como pedir informações ou enviar dados usando comandos simples, como "pegar" (GET), "criar" (POST), "mudar" (PUT) ou "apagar" (DELETE).</p>
+            <p>Em Java, você pode fazer duas coisas: criar um servidor que responde a essas pedidos (back-end) ou fazer um programa que pede informações a um servidor (front-end).</p>
+        </section>
+
+        <section>
+            <h2>Como Funciona</h2>
+            <ul>
+                <li><strong>Recursos:</strong> Coisas como usuários ou produtos, com endereços como /users.</li>
+                <li><strong>Comandos:</strong> GET para ver, POST para adicionar, etc.</li>
+                <li><strong>Sem Memória:</strong> Cada pedido é independente.</li>
+                <li><strong>Formato:</strong> Geralmente usa JSON, que é texto simples.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Fazendo um Servidor (Back-End)</h2>
+            <p>Use Spring Boot para criar um servidor simples. Ele responde a pedidos da internet.</p>
+            <h3>Exemplo Fácil</h3>
+            <pre><code>// Código para o servidor
+@RestController
+@RequestMapping("/users")
+public class UserController {
+    @GetMapping
+    public List<String> getUsers() {
+        return List.of("João", "Maria"); // Lista simples
+    }
+    
+    @PostMapping
+    public String addUser(@RequestBody String name) {
+        return "Utilizador" + name + " adicionado!";
+    }
+}</code></pre>
+            <p>Isso cria um lugar onde você pode pedir a lista de usuários ou adicionar um novo. Teste abrindo no navegador: http://localhost:8080/users.</p>
+        </section>
+
+        <section>
+            <h2>Pedindo Informações (Front-End)</h2>
+            <p>Em um programa Java, use HttpClient para falar com o servidor.</p>
+            <h3>Exemplo Fácil</h3>
+            <pre><code>// Código para pedir dados
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("http://localhost:8080/users"))
+    .GET()
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println("Resposta: " + response.body()); // Mostra a lista</code></pre>
+            <p>Isso pede a lista de utilizadores e mostra na tela. É como fazer uma pergunta e ouvir a resposta.</p>
+        </section>
+
+        <section>
+            <h2>Dicas Simples</h2>
+            <ul>
+                <li>Use HTTPS para proteger os dados.</li>
+                <li>Teste com ferramentas como Postman.</li>
+                <li>Comece pequeno e adicione mais depois.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Aprenda REST API com Java</p>
+    </footer>
+</body>
+</html>
